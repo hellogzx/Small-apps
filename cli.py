@@ -4,6 +4,7 @@ def get_average():
         values = data[1:]
         values = [float(i) for i in values]
         average = sum(values)/len(values)
+        print("this is update")
     return average
 
 
