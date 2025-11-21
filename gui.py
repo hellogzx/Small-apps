@@ -9,8 +9,15 @@ list_box = sg.Listbox(values=functions.get_todos(), key ='todos',
                       enable_events= True, size = [45,10])
 
 edit_button = sg.Button("Edit")
+complete_button = sg.Button("Complete")
+
+# btn_labels = ["Close","Apply"]
+# layout = []
+# for bl in btn_labels:
+#     layout.append([sg.Button(bl)])
+layout = [[label],[input_box,add_btn],[list_box,edit_button,complete_button]]
 window = sg.Window('My app',
-                   layout=[[label],[input_box,add_btn],[list_box,edit_button]],
+                   layout= layout,
                    font = ('Helvetica',20))
 
 while True:
@@ -41,9 +48,19 @@ while True:
             functions.write_todos(todos)
             window['todos'].update(values = todos)
 
+        case "Complete":
+            todo_to_complete = values["todos"][0]
+            todos = functions.get_todos()
+            todos.remove(todo_to_complete)
+            functions.write_todos(todos)
+            window['todos'].update(values = todos)
+
+
+
+
         case 'todos':
             window['todo'].update(value = values['todos'][0])
         case sg.WIN_CLOSED:
             break
-
+sg.popup("Bye")
 window.close()
